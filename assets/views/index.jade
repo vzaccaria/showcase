@@ -1,0 +1,34 @@
+
+extends default
+prepend content 
+
+
+              
+    .masthead.jumbotron 
+        .container      
+              h1 clean slate 
+              p clean slate for web apps 
+              a.btn.btn-small.btn-success(href="github-mac://openRepo/https://github.com/vzaccaria/cleanslate") Clone on Github
+
+
+    //- End: Exactly as bootstrap
+
+    .container.under-the-jumbotron(ng-app='application')
+        .span12(ng-controller='appCtrl')
+          .row
+            .span4
+              p Angular app ready: {{status}}
+              //- #text0
+                
+ prepend post-init
+  script
+     //- window.renderTextAt('markdown/README.md', 'text')
+
+            
+
+
+
+
+
+
+
