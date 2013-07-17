@@ -3,6 +3,7 @@
 { simple-make, all, x, hooks, plugins} = require 'wmake'
 
 my-files = [
+    { name: "js/webcode-toolkit.ls", type: \ls }
     { name: "js/render.ls", type: \ls }
     { name: "js/entry.ls", type: \ls }
 ]
@@ -27,6 +28,7 @@ pre-vendor-files = [
     "./assets/components/showdown/src/extensions/table.js"
     "./assets/components/highlightjs/highlight.pack.js"
     "./assets/js/highlight.js/highlight.pack.js" 
+    "./assets/components/d3/d3.js"
     "./assets/components/underscore.string/lib/underscore.string.js"
 ]
 
@@ -36,7 +38,8 @@ vendor-files      = [ { name: s, type: \js } for s in pre-vendor-files ]
 css-files         = [ { name: "./assets/components/bootstrap/less/bootstrap.less", type: \less } 
                       { name: "./assets/components/bootstrap/less/responsive.less", type: \less } 
                       ]
-img-files         = [ ] 
+img-files         = [ { name: "./assets/svg/main.svg", type: \svg }
+                      { name: "./assets/svg/prova.svg", type: \svg } ] 
 
 project-name      = "cleanslate"
 remote-site-path  = "./#project-name"
@@ -44,10 +47,11 @@ remote-site-path  = "./#project-name"
 plugins.copy-extension \md, (path-system) -> 
   "#{path-system.client-dir}/markdown"
 
-hooks.add-hook 'post-deploy', null, (path-system) ->
-    x "./tools/deploy.coffee -s ./deploy/static -c #{__dirname} -w #{remote-site-path} deploy -v "
+#hooks.add-hook 'post-deploy', null, (path-system) ->
+#    x "./tools/deploy.coffee -s ./deploy/static -c #{__dirname} -w #{remote-site-path} deploy -v "
     
-
+hooks.add-hook 'post-deploy', null, (path-system) ->
+    x "lsc ./tools/parse-svg.ls > ./deploy/static/img/main-angular.svg"
 
 
 files = 
@@ -62,7 +66,8 @@ files =
         
         trigger-files: [ "./assets/components/bootstrap/less",
                          "./assets/views/default.jade"
-                         "./assets/css/final-touches.less" ]
+                         "./assets/css/final-touches.less" 
+                         "./tools/parse-svg.ls" ]
                          
         options: { +minify-js, +minify-css , +with-gzip, +optimize-img}
                      
