@@ -1,6 +1,6 @@
 {
   "name": "showcase",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Clean slate for webapps - integrated with angular and bootstrap",
   "main": "index.js",
   "directories": {
