@@ -44,8 +44,11 @@ remote-site-path  = "./#project-name"
 plugins.copy-extension \md, (path-system) -> 
   "#{path-system.client-dir}/markdown"
 
-hooks.add-hook 'post-deploy', null, (path-system) ->
-    x "./tools/deploy.coffee -s ./deploy/static -c #{__dirname} -w #{remote-site-path} deploy -v "
+hooks.add-hook '_deploy', null, (path-system) ->
+    x "cp ./webserver/htaccess #{path-system.client-dir}/.htaccess"
+
+# hooks.add-hook 'post-deploy', null, (path-system) ->
+    # x "./tools/deploy.coffee -s ./deploy/static -c #{__dirname} -w #{remote-site-path} deploy -v "
     
 
 
